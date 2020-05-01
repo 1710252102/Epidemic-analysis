@@ -4,9 +4,10 @@ const cheerio = require("cheerio");
 const path = require("path");
 const fs = require("fs");
 const url = `https://ncov.dxy.cn/ncovh5/view/pneumonia`;
+A();
 setInterval(() => {
   A();
-}, 1000 * 60 * 60 * 12);
+}, 1000 * 60 * 60);
 function A() {
   superagent
     .get(url)

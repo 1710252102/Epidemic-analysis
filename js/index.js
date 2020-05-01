@@ -367,6 +367,3 @@ function B(Seven) {
     },
   });
 })();
-// var ary = document.querySelectorAll(".no-hd ul li");
-// ary[1].innerHTML = 1312320;
-// console.log(ary);
