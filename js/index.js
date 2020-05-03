@@ -331,39 +331,46 @@ function B(Seven) {
       myChart.resize();
     });
   }
-  $.ajax({
-    type: "get",
-    url: "/api/data",
-    success: function (data) {
-      var getAreaStat = data.getAreaStat;
-      var dataList = [];
-      dataList.push({
-        name: "南海诸岛",
-        value: 0,
-      });
-      var Seven = []; //扇形图
-      var ans = 0;
-      var currentConfirmedCountAns = 0; //现有确诊人数
-      var confirmedCountAns = 0; // 累计确诊人数
-      getAreaStat.forEach((element) => {
-        currentConfirmedCountAns += element.currentConfirmedCount;
-        confirmedCountAns += element.confirmedCount;
+  setInterval(() => {
+    $.ajax({
+      type: "get",
+      url: "/api/data",
+      success: function (data) {
+        var data = JSON.parse(data);
+        var getAreaStat = data.getAreaStat;
+        var dataList = [];
+        // console.log(JSON.parse(data));
         dataList.push({
-          name: element.provinceShortName,
-          value: element.currentConfirmedCount,
+          name: "南海诸岛",
+          value: 0,
         });
-        if (ans < 7)
-          Seven.push({
+        var Seven = []; //扇形图
+        var ans = 0;
+        var currentConfirmedCountAns = 0; //现有确诊人数
+        var confirmedCountAns = 0; // 累计确诊人数
+        getAreaStat.forEach((element) => {
+          currentConfirmedCountAns += element.currentConfirmedCount;
+          confirmedCountAns += element.confirmedCount;
+          dataList.push({
             name: element.provinceShortName,
             value: element.currentConfirmedCount,
           });
-        ans++;
-      });
-      Seven.reverse();
-      $(".no-hd ul li").eq(0).html(confirmedCountAns);
-      $(".no-hd ul li").eq(1).html(currentConfirmedCountAns);
-      A(dataList);
-      B(Seven);
-    },
-  });
+          if (ans < 7)
+            Seven.push({
+              name: element.provinceShortName,
+              value: element.currentConfirmedCount,
+            });
+          ans++;
+        });
+        Seven.reverse();
+        $(".no-hd ul li").eq(0).html(confirmedCountAns);
+        $(".no-hd ul li").eq(1).html(currentConfirmedCountAns);
+        A(dataList);
+        B(Seven);
+      },
+    });
+  }, 5000);
 })();
+// var ary = document.querySelectorAll(".no-hd ul li");
+// ary[1].innerHTML = 1312320;
+// console.log(ary);
