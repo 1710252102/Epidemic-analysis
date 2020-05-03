@@ -332,6 +332,10 @@ function B(Seven) {
     });
   }
   setInterval(() => {
+    C();
+  }, 5000);
+  C();
+  function C() {
     $.ajax({
       type: "get",
       url: "/api/data",
@@ -369,7 +373,7 @@ function B(Seven) {
         B(Seven);
       },
     });
-  }, 5000);
+  }
 })();
 // var ary = document.querySelectorAll(".no-hd ul li");
 // ary[1].innerHTML = 1312320;
